@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en" xmlns:th = "https://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v4.0.1">
+    <title>[[${session.user.getNickname()}]][[#{main.titlePostfix}]]</title>
+    <script th:src="@{/jQuery/jquery-3.4.1.min.js}"></script>
+  <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/dashboard/">
+<!--    <script type="text/javascript">-->
+<!--        function f() {-->
+<!--            $.ajax({-->
+<!--               url:"",-->
+<!--               data:{"name": $("")},-->
+<!--                success:function (data) {-->
+
+<!--                }-->
+<!--            });-->
+<!--        }-->
+<!--    </script>-->
+    <!-- Bootstrap core CSS -->
+  <link th:href="@{bootStrap/bootstrap-4.5.0-examples/assets/dist/css/bootstrap.css}" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link th:href="@{myStrap/css/mainPage.css}" rel="stylesheet">
+  </head>
+<body>
+<!--this part of html will be a exact page for a user
+       first part is a nav bar, second bar is a side bar and it has two parts -->
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow" th:fragment="top-bar">
+<!--      <p th:text="#{main.settings}#{main.logout}#{main.title.prefix}"></p>-->
+      <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#">[[#{main.title.prefix}]][[${session.user.getNickname()}]]</a>
+      <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu"
+              aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+<!--      <input class="form-control form-control-dark w-100" type="text" th:placeholder="#{main.searchEmail}" aria-label="Search">-->
+      <ul class="navbar-nav  px-3" id="fuck-css">
+        <li class="nav-item text-nowrap">
+          <a class="nav-link" href="#" >[[#{main.logout}]]</a>
+        </li>
+      </ul>
+    </nav>
+    <div class="container-fluid">
+      <div class="row">
+        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse" th:fragment="side-bar(type)">
+          <div class="sidebar-sticky pt-3">
+            <ul class="nav flex-column">
+              <li class="nav-item">
+<!--                ${session.tmp_page_type.equals('mail') ? 'active' : ''}-->
+                <a th:class="'nav-link ' + (${type} eq 'receive' ? ' active' : '')" th:href="@{receiveEmail.html}">
+                  <span data-feather="mail"></span>
+                  [[#{main.receives}]]
+                </a>
+              </li>
+              <li class="nav-item">
+                <a th:class="'nav-link ' + (${type} eq 'send' ? ' active' : '')" th:href="@{sendEmail.html}">
+                  <span data-feather="edit"></span>
+                  [[#{main.send}]]
+                </a>
+              </li>
+              <li class="nav-item">
+                <a th:class="'nav-link ' + (${type} eq 'friends' ? ' active' : '')" th:href="@{friends.html}">
+                  <span data-feather="users"></span>
+                  [[#{main.friends}]]
+                </a>
+              </li>
+              <li class="nav-item">
+                  <a th:class="'nav-link ' + (${type} eq 'settings' ? ' active' : '')" th:href="@{settings.html}" >
+                      <span data-feather="settings"></span>
+                      [[#{main.settings}]]
+                  </a>
+              </li>
+            </ul>
+    <!--        <p th:text="#{main.receives}#{main.send}#{main.friends}#{main.others}#{main.draft}#{main.sended}#{main.deleted}"></p>-->
+
+            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+              <span>[[#{main.others}]]</span>
+              <a class="d-flex align-items-center text-muted" href="#" aria-label="Add a new report">
+                <span data-feather="plus-circle"></span>
+              </a>
+            </h6>
+            <ul class="nav flex-column mb-2">
+              <li class="nav-item">
+                <a th:class="'nav-link ' + (${type} eq 'drafts' ? ' active' : '')" th:href="@{drafts.html}">
+                  <span data-feather="trello"></span>
+                  [[#{main.draft}]]
+                </a>
+              </li>
+              <li class="nav-item">
+                <a th:class="'nav-link ' + (${type} eq 'sent' ? ' active' : '')" th:href="@{sent.html}">
+                  <span data-feather="arrow-up-right"></span>
+                  [[#{main.sent}]]
+                </a>
+              </li>
+              <li class="nav-item">
+                <a th:class="'nav-link ' + (${type} eq 'deleted' ? ' active' : '')" th:href="@{deleted.html}">
+                  <span data-feather="trash"></span>
+                  [[#{main.deleted}]]
+                </a>
+              </li>
+                <li class="nav-item">
+                    <a th:class="'nav-link ' + (${type} eq 'drifts' ? ' active' : '')" th:href="@{drifts.html}">
+                        <span data-feather="wind"></span>
+                        [[#{main.drift}]]
+                    </a>
+                </li>
+            </ul>
+          </div>
+        </nav>
+    <!--main contains your core component-->
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2">Dashboard</h1>
+            <div class="btn-toolbar mb-2 mb-md-0">
+              <div class="btn-group mr-2">
+                <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+              </div>
+              <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                <span data-feather="calendar"></span>
+                This week
+              </button>
+            </div>
+          </div>
+
+          <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+          <h2>Section title</h2>
+         </main>
+        </div>
+    </div>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script>window.jQuery || document.write('<script th:src="@{bootStrap/bootstrap-4.5.0-examples/assets/js/vendor/jquery.slim.min.js}"><\/script>')</script><script th:src="@{bootStrap/bootstrap-4.5.0-examples/assets/dist/js/bootstrap.bundle.js}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+  <script th:src="@{myStrap/js/dashboard.js}"></script>
+</body>
+
+</html>

@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+        <meta name="generator" content="Jekyll v4.0.1">
+        <title>[[${session.user.getNickname()}]]-[[#{main.send}]]</title>
+<!--        <script th:src="@{/jQuery/jquery-3.4.1.min.js}"></script>-->
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/dashboard/">
+
+        <!-- Bootstrap core CSS -->
+        <link th:href="@{bootStrap/bootstrap-4.5.0-examples/assets/dist/css/bootstrap.css}" rel="stylesheet">
+
+        <style type="text/css">
+            ul.section {
+                list-style: none;
+                margin-top: 20px;
+                padding: 0;
+
+                /*background: white;*/
+                /*margin-left: 165px;*/
+                float: left;
+            }
+
+            ul.section li {
+                float: left;
+                /*margin-right: 28px;*/
+                font-size: 16px;
+                color: #d598de;
+                font-weight: normal;
+                background: #e0ded7;
+                /*font-family: Lucida Console, Monaco, Courier New, mono, monospace;*/
+                font-family: Tahoma, Helvetica, Arial, sans-serif;
+                cursor: pointer;
+            }
+
+            .container ul.section li:hover {
+                /*color: #73b9f3;*/
+                color: #093247;
+            }
+
+            ul.section li:nth-child(1) {
+                margin-right: 5px
+            }
+
+            ul.section li:nth-child(2) {
+                margin-right: 5px
+            }
+
+            ul.section li:nth-child(3) {
+                margin-right: 5px
+            }
+
+            ul.section li:nth-child(4) {
+                margin-right: 5px
+            }
+
+            .no-surr {
+                margin: 0;
+                margin-top: 5px;
+                border: 0;
+                padding: 0;
+            }
+
+            .tips {
+                width: 60px;
+                float: left;
+            }
+
+            #address {
+                float: left;
+                width: 1000px;
+            }
+
+            #title {
+                float: left;
+                width: 1000px;
+            }
+
+            #message {
+                width: 1000px;
+                resize: none;
+                height: 400px;
+            }
+
+            .btn-list {
+                width: 120px;
+                height: 40px;
+            }
+
+        </style>
+        <style type="text/css">
+            /*通用*/
+            .popBox-mask {
+                position: fixed;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                opacity: .6;
+                z-index: 99999;
+                background-color: #000;
+            }
+
+            .popBox-content {
+                position: fixed;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 99999;
+            }
+
+            /*各个弹框下的样式可以自己更改*/
+            #pop-upload .popBox-content {
+                width: 600px;
+                height: 400px;
+                background-color: #fff;
+                /*text-align: center;*/
+            }
+
+            .popBox-content img {
+                width: 20px;
+                height: auto;
+            }
+
+            #pop-upload {
+                position: absolute;
+                top: 20px;
+                right: 20px;
+            }
+
+            .btn-close {
+                position: absolute;
+                top: 6px;
+                right: 5px;
+            }
+
+            .name-line p {
+                float: left;
+                width: 100px;
+                height: 40px;
+            }
+            #address-tip-on-group{
+                border: 0;
+                color: gray;
+                display: none;
+            }
+        </style>
+        <!-- Custom styles for this template -->
+        <link th:href="@{myStrap/css/mainPage.css}" rel="stylesheet">
+
+        <script type="text/javascript">
+            const hashList = [];
+            function send_mail(value) {
+                if (value === '-1') document.getElementById("type").value = value;//draft
+
+                else if (document.getElementById("type").value === "0") {
+                    alert("empty type!");
+                    return;
+                }
+                value = document.getElementById("type").value;
+                var val = document.getElementById("address").value.toString();
+                alert("Check add " + val);
+                var res = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(val),
+                    tit = document.getElementById("title").value.toString();
+                if (!res && value !== '-1' && value !== '3') {
+                    alert("on type " + value)
+                    alert("invalid address!");
+                    return;
+                }
+                if (tit === "") {
+                    alert("empty title? con");
+                }
+                const fo = document.getElementById("send-mail");
+                var v = "";
+                hashList.forEach(function (ele, index) {
+                    console.log("val + index" + ele + " " + +index);
+                    v += ele + "\n";
+                })
+                $("#file-hash-list").val(v);
+                alert(v);
+                // alert("TRY SUBMIT!" + ($("#type").value.toString()));
+                fo.submit();
+            }
+
+            function change_type(value) {
+                // alert("val! " + value);
+                document.getElementById("send-mail-button").removeAttribute("disabled")
+                document.getElementById("type").value = value;
+            }
+
+            function changeHover() {
+                // alert("ok");
+                this.style.cursor = "default"
+            }
+
+            function showLogin() {
+                document.getElementById('pop-upload').style.display = 'block';
+            }
+
+            //关闭弹框
+            function hideLogin() {
+                document.getElementById('pop-upload').style.display = 'none';
+            }
+
+            function upload() {
+                let obj = $('#file-upload')[0].files;
+                if (obj.length === 0) {
+                    alert("un chosen file!");
+                    return;
+                }
+                let form = new FormData();
+                form.append('file', obj[0]);
+                jQuery.ajax({
+                    url: '[(@{/sendEmail-upload})]',
+                    type:'post',
+                    contentType: false,
+                    data: form,
+                    processData: false,
+                    success: function (arg) {
+                        // alert(arg + ' ' + arg.hash + ' ' + arg.status);
+                        if(arg.hash !== null){
+                            hashList.push(arg.hash);
+                        }
+                    },
+                    error: function (arg) {
+                        console.log(arg);
+                        alert("SEVER ERR!");
+                    }
+                })
+                hideLogin();
+            }
+
+            function file_cancel() {
+                // alert('cancel!')
+                $('#file-upload').val('');
+                // alert('cancel!')
+            }
+            function load() {
+            }
+        </script>
+
+    </head>
+
+    <body onload="load()">
+        <div th:replace="/component.html::top-bar"></div>
+        <div class="container-fluid">
+            <div class="row">
+                <div th:replace="/component.html::side-bar('send')"></div>
+                <!--main contains your core component-->
+                <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+                    <form id="send-mail" th:action="@{/sending-mail}" method="post">
+                        <input type="hidden" name="type" value="0" id="type">
+                        <input type="hidden" name="hashList" value="" id="file-hash-list">
+                        <div class="d-inline-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom no-surr">
+                            <!--              <script type="text/javascript">$("#personal").click()</script>-->
+                            <span class="tips">type</span>
+                            <ul class="section">
+                                <li class="mail-type" id="personal" onclick="change_type('1')">私人邮件</li>
+                                <li class="mail-type" id="group" onclick="change_type('2')">群发邮件</li>
+                                <li class="mail-type" id="drift" onclick="change_type('3')">漂流瓶</li>
+                            </ul>
+                        </div>
+                        <div class="justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom no-surr">
+                            <span class="tips">address</span>
+                            <label class="add-bar">
+                                <input type="text" name="address" id="address" placeholder="input address" th:value="${session.toAdd}">
+                                <div id="address-tip-on-group">用";"分隔地址</div>
+                            </label>
+                            <label>
+                            </label>
+<!--                            <p>aths</p>-->
+<!--                            <span class="tips">testxxc</span>-->
+                        </div>
+                        <div class="justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom no-surr">
+                            <span class="tips">title</span>
+                            <label class="title-bar">
+                                <input type="text" name="title" id="title" placeholder="your title" value="">
+                            </label>
+                        </div>
+
+                        <div class="justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom no-surr">
+                            <span class="tips">content</span>
+                            <label class="mess-bar">
+                                <button type="button" name="file-btn" class="" onclick="showLogin()">上传附件</button>
+                            </label>
+                        </div>
+
+                        <div class="justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom no-surr">
+                            <span class="tips mess-tip">content</span>
+                            <label class="mess-bar">
+                                <textarea name="message" id="message" placeholder="write something"></textarea>
+                            </label>
+                        </div>
+                        <div class="flex-wrap text-center flex-md-nowrap align-items-center no-surr">
+                            <button type="button" id="send-mail-button" class="btn btn-primary btn-list"
+                                     onclick="send_mail('1')">发送
+                            </button>
+                            <button type="button" class="btn btn-primary btn-list"
+                                    onclick="send_mail('-1')">存草稿
+                            </button>
+                            <button type="button" class="btn btn-primary btn-list"
+                                    onclick="back('main')">返回主页
+                            </button>
+                        </div>
+                    </form>
+                    <div class="popBox" id="pop-upload" style="display:none">
+                        <div class="popBox-mask"></div>
+                        <div class="popBox-content" th:fragment="pop-upload">
+                            <!--        this is the close button-->
+                            <p class="btn-close" onclick="hideLogin();">关闭</p>
+                            <button name="upload" id="file-upload-btn" onclick="upload()">upload</button>
+                            <input type="file" multiple="multiple" name="up-file" id="file-upload">
+                            <button type="button" name="cancel" onclick="file_cancel()">cancel
+                            </button>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+<!--        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"-->
+<!--                integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"-->
+<!--                crossorigin="anonymous"></script>-->
+<!--        <script>window.jQuery || document.write('<script th:src="@{bootStrap/bootstrap-4.5.0-examples/assets/js/vendor/jquery.slim.min.js}"><\/script>')</script>-->
+        <script th:src="@{bootStrap/bootstrap-4.5.0-examples/assets/dist/js/bootstrap.bundle.js}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+        <script th:src="@{myStrap/js/dashboard.js}"></script>
+    </body>
+    <script type="text/javascript">
+        function sub1() {
+            document.getElementById("upload").su
+        }
+
+        $(".mail-type").click(function () {
+            var tmp = $(this).attr('id');
+            document.getElementById(tmp).style.backgroundColor = "#f1f0ea";
+            document.getElementById(tmp).style.color = getSelectC();
+
+            if (tmp.toString() !== "personal") {
+                document.getElementById("personal").style.backgroundColor = getDefaultBGC();
+                document.getElementById("personal").style.color = "black";
+            }
+            if (tmp.toString() !== "group") {
+                document.getElementById("group").style.backgroundColor = getDefaultBGC();
+                document.getElementById("group").style.color = "black";
+                document.getElementById("address-tip-on-group").style.display='none';
+            }
+            if (tmp.toString() !== "drift") {
+                document.getElementById("drift").style.color = "black";
+                document.getElementById("drift").style.backgroundColor = getDefaultBGC();
+            }
+            if(tmp.toString() === "group"){
+                document.getElementById("address-tip-on-group").style.display='inline';
+            }
+        });
+
+        function getSelectC() {
+            return "blue";
+        }
+
+        function getDefaultBGC() {
+            return "#e0ded7";
+        }
+
+        function back(address) {
+            window.location.href = address;
+        }
+    </script>
+</html>

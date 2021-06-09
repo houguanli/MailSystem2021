@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en" xmlns:th = "https://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors, Johnny Hou improved">
+    <meta name="generator" content="Jekyll v4.0.1">
+    <title th:text="#{register.title}">欢迎注册HEmail</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/sign-in/">
+
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{bootStrap/bootstrap-4.5.0-examples/assets/dist/css/bootstrap.css}" rel="stylesheet">
+    <!--    <link href="../static" rel="stylesheet">-->
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+    <!-- Custom styles for this template -->
+    <link th:href="@{myStrap/css/register.css}" rel="stylesheet">
+</head>
+<body class="text-center">
+<form class="form-register" th:action="@{/user-register}" method="post" id="form-register">
+    <img class="mb-4" th:src="@{myStrap/pic/noBackground/logo.png}" alt="" width="214" height="96">
+    <h1 class="h3 mb-3 font-weight-normal" th:text="#{register.tip}">欢迎注册</h1>
+    <p style="color: #ff0000" th:text="${errorMes}" th:if="${not #strings.isEmpty(errorMes)}"></p>
+    <label for="inputEmail" class="sr-only" th:text="#{register.username}" d>邮箱</label>
+    <input type="email" name="email" id="inputEmail" class="form-control" th:placeholder="#{register.username}" required autofocus>
+    <label for="inputPassword" class="sr-only" >密码</label>
+    <input type="password" name="password" id="inputPassword" class="form-control" th:placeholder="#{register.password}" required>
+    <label for="inputPassword-repeat" class="sr-only" >请重复密码</label>
+    <input type="password" name="repeat" id="inputPassword-repeat" class="form-control" th:placeholder="#{register.repeat}" required>
+    <button type="button" class="btn btn-lg btn-primary btn-block" th:text="#{register.submit}" onclick="sub()">注册账号！</button>
+    <p class="mt-5 mb-3 text-muted">&copy; 2020.6-2020.7</p>
+    <a class="btn-sm-language" th:href="@{/register(lan=zh_CN)}">中文</a>
+    <a class="btn-sm-language" th:href="@{/register(lan=en_US)}">English</a>
+
+</form>
+    <script type="text/javascript">
+        function sub() {
+            var val = document.getElementById("inputEmail").value.toString(), p1 =  document.getElementById("inputPassword").value.toString(),
+                p2 = document.getElementById("inputPassword-repeat").value.toString();
+            alert("Check add " + val);
+            if(!(p1 === p2)){
+                alert("两次输入的密码不一致");
+                return;
+            }
+            var res = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(val);
+            // alert(res);
+            if (!res) {
+                alert("invalid address!");
+            }else{
+                alert("invalid ok!");
+                document.getElementById("form-register").submit();
+            }
+        }
+    </script>
+</body>
+</html>

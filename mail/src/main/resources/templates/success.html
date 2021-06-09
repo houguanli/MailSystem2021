@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "https://www.thymeleaf.org">
+<!--用于提示thymeleaf的语法-->
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link th:href="@{bootStrap/bootstrap-4.5.0-examples/assets/dist/css/bootstrap.css}" rel="stylesheet">
+    <style type="text/css">
+        .mes-block{
+            width: 1400px;
+        }
+        .icon-block{
+            width: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div  class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom no-surr">
+        <div onclick="'open1()'"
+             class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center no-surr mes-block">
+            <p class="text-in-single-line" text="${}"> dataHelper.title</p>
+            <p class="text-in-single-line blank-block"></p>
+            <p class="text-in-single-line" text="${}"> dataHelper.from_name</p>
+        </div>
+        <div onclick="'open1()'"
+             class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center icon-block">
+            <p class="text-in-single-line" >close</p>
+<!--            <p class="text-in-single-line blank-block"></p>-->
+<!--            <p class="text-in-single-line" text="${dataHelper.from_name}"></p>-->
+        </div>
+    </div>
+<!--    <h1 th:text="${session.mes}">ok!</h1>-->
+<!--&lt;!&ndash;    <p th:text="th:url@{/hello}"></p>&ndash;&gt;-->
+<!--    <form th:action="@{/test.html}" method="post">-->
+<!--        <button class="btn btn-lg btn-primary btn-block" th:text="#{login.submit}">登录！</button>-->
+<!--        <input type="submit" th:text="#{login.submit}">-->
+<!--&lt;!&ndash;        <input name="filename" type="">&ndash;&gt;-->
+<!--&lt;!&ndash;        <label for="inputEmail">&ndash;&gt;-->
+<!--&lt;!&ndash;            <input type="email" name="email" id="inputEmail" class="form-control" th:placeholder="#{login.email}" required autofocus>&ndash;&gt;-->
+<!--&lt;!&ndash;        </label>&ndash;&gt;-->
+<!--    </form>-->
+<!--    <form enctype="multipart/form-data" method="post" th:action="@{/suc-upload}">-->
+<!--        <input type="file" name="file"/>-->
+<!--        <input type="submit" value="上传"/>-->
+<!--    </form>-->
+<!--    <form enctype="multipart/form-data" method="post" th:action="@{/download}">-->
+<!--        <label>-->
+<!--            <input type="text" name="fileName"/>-->
+<!--        </label>-->
+<!--        <input type="submit" value="下载"/>-->
+<!--    </form>-->
+</body>
+</html>

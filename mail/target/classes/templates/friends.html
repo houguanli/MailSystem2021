@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en" xmlns:th = "https://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v4.0.1">
+    <title>HEmail</title>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+  <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/dashboard/">
+
+    <!-- Bootstrap core CSS -->
+<link th:href="@{bootStrap/bootstrap-4.5.0-examples/assets/dist/css/bootstrap.css}" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+      .no-surr {
+          margin: 0;
+          margin-top: 5px;
+          border: 0;
+          padding: 0;
+      }
+      .delete-rel-icon{
+          margin-top: -10px;
+          margin-left: 20px;
+          width: 30px;
+          height: 30px;
+      }
+      .send-mail-icon{
+          margin-top: -20px;
+
+          width: 50px;
+          height: 50px;
+      }
+        .with-border{
+            border: black;
+            border: 2px;
+        }
+    </style>
+    <!-- Custom styles for this template -->
+    <link th:href="@{myStrap/css/mainPage.css}" rel="stylesheet">
+  </head>
+<body>
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow" >
+        <!--      <p th:text="#{main.settings}#{main.logout}#{main.title.prefix}"></p>-->
+        <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#">[[#{main.title.prefix}]][[${session.user.getNickname()}]]</a>
+        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu"
+                aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!--      <input class="form-control form-control-dark w-100" type="text" th:placeholder="#{main.searchEmail}" aria-label="Search">-->
+        <ul class="navbar-nav  px-3" id="fuck-css">
+            <li class="nav-item text-nowrap">
+                <a class="nav-link" href="#" >[[#{main.logout}]]</a>
+            </li>
+        </ul>
+    </nav>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div th:replace="/component.html::side-bar('friends')"></div>
+      <!--main contains your core component-->
+      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+          <div class="no-surr d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom with-border">
+              <form th:action="@{/search-friends}" method="post" id="turn-search-user">
+                  <input class="form-control form-control-dark w-100" type="text" placeholder="搜联系人" aria-label="Search" name="address">
+              </form>
+              <img src="pic/icon/search.png" class="delete-rel-icon" alt="" onclick="onSearchUser()">
+
+          </div>
+
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+          <h2 class="h2">我的联系人</h2>
+        </div>
+
+          <form th:action="@{/sendEmail-friends}" method="post" id="turn-send-mail">
+              <input type="hidden" value="" name="friend-address" id="friend-index">
+<!--              <img src="pic/icon/SendMail.png" alt="" onclick="onSendMailAction()" class="send-mail-icon">-->
+          </form>
+        <div class="no-surr d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom"
+        th:each="friend, status:${session.friends}" onclick="" th:id="'firend-info' + ${status.index}">
+            <div class="no-surr d-flex" onclick="" style="display: inline;">
+                <p th:text="${friend.getNickname()}" style="display: inline; width: 500px"></p>
+                <p style="display: inline"></p>
+                <p th:text="${friend.getEmail()}" style="display: inline; width: 200px"></p>
+                <p style="display: inline"></p>
+            </div>
+<!--            <p class="no-surr d-flex"></p>-->
+            <div class="no-surr d-flex">
+<!--                    <input type="hidden" value="" name="address" class="friend-id">-->
+                <img src="pic/icon/SendMail.png" alt="" th:onclick="'onSendMailAction(\'' + ${status.index} + '\')'" class="send-mail-icon">
+                <img src="pic/icon/remove(1).png" alt="" th:onclick="'onDeleteAction(\'' + ${status.index} +  '\')'" class="delete-rel-icon">
+            </div>
+
+        </div>
+      </main>
+    </div>
+  </div>
+    <script th:src="@{bootStrap/bootstrap-4.5.0-examples/assets/dist/js/bootstrap.bundle.js}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+        <script th:src="@{myStrap/js/dashboard.js}"></script>
+  </body>
+  <script type="text/javascript">
+      function onDeleteAction(index){
+          var res = confirm("del your friend? ");
+          if(res === true){
+           onTrueDeleteAction(index);
+          }
+      }
+
+      function onTrueDeleteAction(index) {
+        alert("RUN DEL!");
+        let form = new FormData();
+        form.append('index', index);
+        jQuery.ajax({
+            url: '[(@{/friends-delete})]',
+            type:'post',
+            contentType: false,
+            data: form,
+            processData: false,
+            success: function (arg) {
+                // alert(arg + ' ' + arg.hash + ' ' + arg.status);
+            },
+            error: function (arg) {
+                console.log(arg);
+                alert("SEVER ERR!");
+            }
+        })
+        document.getElementById("friend-info" + index).remove();
+    }
+
+    function onSendMailAction(val) {
+        // alert("RUN " + val);
+        document.getElementById("friend-index").value=val.toString();
+        $("#turn-send-mail").submit();
+    }
+
+    function onSearchUser() {
+        document.getElementById("turn-search-user").submit();
+    }
+  </script>
+</html>

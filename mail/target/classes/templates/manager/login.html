@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors, Johnny Hou improved">
+    <meta name="generator" content="Jekyll v4.0.1">
+    <title th:text="#{login.title}">欢迎使用HEmail</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/sign-in/">
+
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{bootStrap/bootstrap-4.5.0-examples/assets/dist/css/bootstrap.css}" rel="stylesheet">
+<!--    <link href="../static" rel="stylesheet">-->
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+    <!-- Custom styles for this template -->
+    <link th:href="@{myStrap/css/login.css}" rel="stylesheet">
+</head>
+<body class="text-center">
+<form class="form-signin" th:action="@{/user-login}" method="post">
+    <img class="mb-4" th:src="@{myStrap/pic/noBackground/logo.png}" alt="" width="214" height="96">
+    <h1 class="h3 mb-3 font-weight-bnormal" th:text="#{login.tip}">您好，请登录</h1>
+    <p style="color: #ff0000" th:text="${errorMes}" th:if="${not #strings.isEmpty(errorMes)}"></p>
+    <label for="inputEmail" class="sr-only" th:text="#{login.email}">邮箱/用户名</label>
+    <input type="email" name="email" id="inputEmail" class="form-control" th:placeholder="#{login.email}" required autofocus>
+    <label for="inputPassword" class="sr-only" >密码</label>
+    <input type="password" name="password" id="inputPassword" class="form-control" th:placeholder="#{login.password}" required>
+    <div class="checkbox-link" >
+        <label>
+            <input type="checkbox" value="remember-me"> [[#{login.remember} ]]
+        </label>
+    </div>
+    <a class="to-register" th:href="@{/register}" th:text="#{login.register}">没有账号？点击这里注册</a>
+    <button class="btn btn-lg btn-primary btn-block" th:text="#{login.submit}">登录！</button>
+    <p class="mt-5 mb-3 text-muted">&copy; 2020.6-2020.7</p>
+    <a class="btn-sm-language" th:href="@{/login(lan=zh_CN)}">中文</a>
+    <a class="btn-sm-language" th:href="@{/login(lan=en_US)}">English</a>
+
+</form>
+</body>
+</html>

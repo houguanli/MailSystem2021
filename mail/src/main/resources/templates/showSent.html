@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en" xmlns:th = "https://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+        <meta name="generator" content="Jekyll v4.0.1">
+        <title>HEmail</title>
+        <!--  <script th:src="@{/jQuery/jquery-3.4.1.min.js}"></script>-->
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/dashboard/">
+
+        <!-- Bootstrap core CSS -->
+        <link th:href="@{bootStrap/bootstrap-4.5.0-examples/assets/dist/css/bootstrap.css}" rel="stylesheet">
+
+        <style>
+            .bd-placeholder-img {
+                font-size: 1.125rem;
+                text-anchor: middle;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+
+            @media (min-width: 768px) {
+                .bd-placeholder-img-lg {
+                    font-size: 3.5rem;
+                }
+            }
+        </style>
+        <style type="text/css">
+            .no-surr {
+                margin: 0;
+                border: 0;
+                padding: 0;
+            }
+            .icon-in-single-line{
+                width: 30px;
+                height: 30px;
+                vertical-align: middle;
+                horiz-align: center;
+            }
+            #icon-mail-read{
+                width: 27px;
+                height: 27px;
+            }
+            .text-in-single-line{
+                vertical-align: middle;
+                border: 0;
+                padding: 0;
+                margin: 0;
+                height: 25px;
+            }
+            .blank-block{
+                width: 100px;
+                height: 150px;
+            }
+            .download-link{
+                color: dodgerblue;
+            }
+        </style>
+        <!-- Custom styles for this template -->
+        <link th:href="@{myStrap/css/mainPage.css}" rel="stylesheet">
+        <script type="text/javascript">
+            function load() {
+            }
+
+        </script>
+    </head>
+    <body onload="load()">
+
+        <div th:replace="/component.html::top-bar"></div>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div th:replace="/component.html::side-bar('sent')"></div>
+                <!--main contains your core component-->
+                <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4 main-message-pane">
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom">
+                        <h2 class="h2 no-surr" th:text="${session.title}">test title</h2>
+                    </div>
+                    <div class="no-surr text-in-single-line" th:each="mes, status:${session.messages}">
+                        <p class="no-surr " th:text="${mes}"></p><br>
+                    </div>
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom blank-block">
+                    </div>
+                    <div class="">
+                        <p>我发送的附件</p>
+                    </div>
+                    <div class="no-surr text-in-single-line" th:each="link, status:${session.links}">
+                        <p class="no-surr download-link" th:text="'附件' + (${status.index} + 1) + ' '+ ${link}"></p>
+                        <br>
+                    </div>
+                    <!--                    <p> message</p>-->
+                    <!--                    <a  href="test.html"></a>-->
+                </main>
+            </div>
+        </div>
+        <script type="text/javascript">
+            function download(index) {//use ajax to complete th download sys
+                let form = new FormData();
+                form.append("index", index);
+                jQuery.ajax({
+                    url: '[[@{/showMail-download}]]',
+                    type:'post',
+                    contentType: false,
+                    data: form,
+                    processData: false,
+                    success: function (data){
+                        alert(data);
+                    }
+                })
+            }
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+        <script th:src="@{myStrap/js/dashboard.js}"></script>
+    </body>
+</html>

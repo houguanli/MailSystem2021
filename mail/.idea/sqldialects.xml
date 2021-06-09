@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/src/main/java/com/hou/mail/response/DriftRes.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/hou/mail/response/FileRes.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/hou/mail/response/MailRes.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/hou/mail/response/RegisterRes.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/hou/mail/response/RelationRes.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/hou/mail/response/UserRes.java" dialect="GenericSQL" />
+  </component>
+  <component name="SqlResolveMappings">
+    <file url="PROJECT" scope="{&quot;node&quot;:{  &quot;@negative&quot;:&quot;1&quot;,  &quot;group&quot;:{   &quot;@kind&quot;:&quot;root&quot;,   &quot;node&quot;:{    &quot;name&quot;:{     &quot;@qname&quot;:&quot;cfd15361-d003-4e2d-890e-a015104237f0&quot;    },    &quot;group&quot;:{     &quot;@kind&quot;:&quot;schema&quot;,     &quot;node&quot;:{      &quot;name&quot;:{       &quot;@qname&quot;:&quot;data&quot;      }     }    }   }  } }}" />
+  </component>
+</project>

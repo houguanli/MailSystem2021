@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en" xmlns:th = "https://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v4.0.1">
+    <title>[[${session.user.getNickname()}]]-Settings</title>
+
+  <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/dashboard/">
+
+    <!-- Bootstrap core CSS -->
+<link th:href="@{bootStrap/bootstrap-4.5.0-examples/assets/dist/css/bootstrap.css}" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link th:href="@{myStrap/css/settings.css}" rel="stylesheet">
+  </head>
+<body>
+    <div th:replace="/component.html::top-bar"></div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div th:replace="/component.html::side-bar('settings')"></div>
+            <!--main contains your core component-->
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+              <h2 class="h2">[[#{main.settings}]]</h2>
+              <div class="btn-toolbar mb-2 mb-md-0">
+                  <div class="btn-group mr-2">
+                      <!--              <p th:text="#{setting.undo} #{settings.todefault}"></p>-->
+                      <button type="button" class="btn btn-sm btn-outline-secondary">[[#{setting.undo}]]</button>
+                      <button type="button" class="btn btn-sm btn-outline-secondary">[[ #{settings.todefault}]]</button>
+                  </div>
+              </div>
+          </div>
+          <form class="form-settings" th:action="@{/settings-change}" method="post">
+<!--      语言设置-->
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom settings-birthday-line">
+<!--          应该用单选框代替-->
+        <h4 th:text="#{settings.language}" >语言设置</h4>
+        <ul class="settings-language" >
+          <li>
+            <a class="nav-link" th:href="@{/settings.html(lan=en_US)}">
+              <span data-feather="English"></span>
+              English(US)
+            </a>
+          </li>
+          <li>
+            <a class="nav-link"  th:href="@{/settings.html(lan=zh_CN)}">
+<!--              <p th:text="@{/se}"></p>-->
+              <span data-feather="Chinese"></span>
+              中文（简体）
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h4 th:text="#{settings.birthday}">生日设置</h4>
+<!--        <p th:text="${session.user.getBirthday()}"></p>-->
+<!--          <p th:text="${session.userMes}"></p>-->
+        <label class="settings-birthday">
+<!--          <input type="date"  value="" >-->
+          <input type="date" th:value="${session.user.getBirthday()}" name="birthday">
+<!--          <input type="date"  value="2000-01-01" >-->
+        </label>
+      </div>
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h4 th:text="#{settings.nickname}">昵称设置</h4>
+            <label class="settings-nickname">
+                <input type="text" th:value="${session.user.getNickname()}" name="nickname">
+            </label>
+        </div>
+        <div class="blank">
+        </div>
+        <button class="btn btn-lg btn-primary btn-block settings-submit" th:text="#{settings.submit}">修改</button>
+          </form>
+    </main>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script th:src="@{bootStrap/bootstrap-4.5.0-examples/assets/js/vendor/jquery.slim.min.js}"><\/script>')</script><script th:src="@{bootStrap/bootstrap-4.5.0-examples/assets/dist/js/bootstrap.bundle.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+    <script th:src="@{myStrap/js/dashboard.js}"></script>
+  </body>
+</html>

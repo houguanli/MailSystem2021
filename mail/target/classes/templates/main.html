@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en" xmlns:th = "https://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+        <meta name="generator" content="Jekyll v4.0.1">
+        <title>HEmail</title>
+        <!--  <script th:src="@{/jQuery/jquery-3.4.1.min.js}"></script>-->
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/dashboard/">
+
+        <!-- Bootstrap core CSS -->
+        <link th:href="@{bootStrap/bootstrap-4.5.0-examples/assets/dist/css/bootstrap.css}" rel="stylesheet">
+
+        <style>
+            .bd-placeholder-img {
+                font-size: 1.125rem;
+                text-anchor: middle;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+
+            @media (min-width: 768px) {
+                .bd-placeholder-img-lg {
+                    font-size: 3.5rem;
+                }
+            }
+        </style>
+        <style type="text/css">
+            .no-surr {
+                margin: 5px 0 0;
+                border: 0;
+                padding: 0;
+            }
+            .icon-in-single-line{
+                width: 30px;
+                height: 30px;
+                vertical-align: middle;
+                horiz-align: center;
+            }
+            .icon-mail-read{
+                width: 27px;
+                height: 27px;
+            }
+            .text-in-single-line{
+                vertical-align: middle;
+                border: 0;
+                padding: 0;
+                margin: 0;
+            }
+            .blank-block{
+                width: 100px;
+            }
+
+
+        </style>
+        <style type="text/css">
+            .lb-block{
+                width: 344px;
+                height: 199px;
+                overflow: hidden;
+            }
+            .lb-ul{
+                width: 1042px;
+            }
+            .lb-li{
+                display: inline-block;
+            }
+        </style>
+        <!-- Custom styles for this template -->
+        <link th:href="@{myStrap/css/mainPage.css}" rel="stylesheet">
+        <script>
+            function load() {
+
+            }
+        </script>
+    </head>
+    <body onload="load()">
+        <div th:replace="/component.html::top-bar"></div>
+        <div class="container-fluid">
+            <div class="row">
+                <div th:replace="/component.html::side-bar('')"></div>
+                <!--main contains your core component-->
+                <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4 main-message-pane">
+                    <div class="lb-block">
+                        <ul class="lb-ul">
+                            <li class="lb-li"><img src="pic/icon/mail0.jpg" alt=""></li>
+                            <li class="lb-li"><img src="pic/icon/mail0.jpg" alt=""></li>
+                            <li class="lb-li"><img src="pic/icon/mail0.jpg" alt=""></li>
+                        </ul>
+                    </div>
+                </main>
+            </div>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+        <script th:src="@{myStrap/js/dashboard.js}"></script>
+    </body>
+</html>

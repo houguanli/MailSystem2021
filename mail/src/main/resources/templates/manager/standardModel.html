@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "https://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <link th:href="@{/bootStrap/bootstrap-4.5.0-examples/assets/dist/css/bootstrap.css}" rel="stylesheet">
+    </head>
+    <body>
+        <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow" th:fragment="top-bar">
+            <!--      <p th:text="#{main.settings}#{main.logout}#{main.title.prefix}"></p>-->
+<!--            <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#">[[#{main.title.prefix}]][[${session.user.getNickname()}]]</a>-->
+            <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu"
+                    aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <input class="form-control form-control-dark w-100" type="text" th:placeholder="#{main.searchEmail}" aria-label="Search">
+            <!--      <a class="nav-item" href="#" >[[#{main.settings}]]</a>-->
+            <!--      <a class="nav-item" href="#">[[#{main.logout}]]</a>-->
+            <!--      <img class="nav-ico" th:src="@{myStrap/pic/setting.jpg}" alt="" width="30" height="30">-->
+            <!--      <img class="nav-ico" th:src="@{myStrap/pic/exit.jpg}" alt="" width="30" height="30">-->
+            <ul class="navbar-nav  px-3" id="fuck-css">
+                <!--        <li class="nav-item text-nowrap">-->
+                <!--          <a class="nav-link" href="#">[[#{main.settings}]]</a>-->
+                <!--        </li>-->
+                <li class="nav-item text-nowrap">
+                    <a class="nav-link" href="#" >[[#{main.logout}]]</a>
+                </li>
+            </ul>
+        </nav>
+        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse" th:fragment="left-bar">
+            <div class="sidebar-sticky pt-3">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" th:href="@{/receiveEmail.html}"
+                           th:class="${activeUri=='receiveEmail'?'nav-link active' : 'nav-link'}"
+                        >
+                            <span data-feather="home"></span>
+                            [[#{main.receives}]]
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/sendEmail.html}"
+                           th:class="${activeUri=='sendEmail'?'nav-link active' : 'nav-link'}"
+                        >
+                            <span data-feather="file"></span>
+                            [[#{main.send}]]
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/friends.html}"
+                           th:class="${activeUri=='friends'?'nav-link active' : 'nav-link'}"
+                        >
+                            <span data-feather="shopping-cart"></span>
+                            [[#{main.friends}]]
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/settings.html}"
+                           th:class="${activeUri=='settings'?'nav-link active' : 'nav-link'}"
+                        >
+                            <span data-feather="shopping-cart"></span>
+                            [[#{main.settings}]]
+                        </a>
+                    </li>
+                </ul>
+                <!--        <p th:text="#{main.receives}#{main.send}#{main.friends}#{main.others}#{main.draft}#{main.sended}#{main.deleted}"></p>-->
+
+                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                    <span>[[#{main.others}]]</span>
+                    <a class="d-flex align-items-center text-muted" href="#" aria-label="Add a new report">
+                        <span data-feather="plus-circle"></span>
+                    </a>
+                </h6>
+                <ul class="nav flex-column mb-2">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{drafts.html}"
+                           th:class="${activeUri=='drafts'?'nav-link active' : 'nav-link'}"
+                        >
+                            <span data-feather="file-text"></span>
+                            [[#{main.draft}]]
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{sent.html}"
+                           th:class="${activeUri=='sent'?'nav-link active' : 'nav-link'}"
+                        >
+                            <span data-feather="file-text"></span>
+                            [[#{main.sent}]]
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{deleted.html}"
+                           th:class="${activeUri=='deleted'?'nav-link active' : 'nav-link'}"
+                        >
+                            <span data-feather="file-text"></span>
+                            [[#{main.deleted}]]
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+
+        </main>
+    </body>
+</html>
